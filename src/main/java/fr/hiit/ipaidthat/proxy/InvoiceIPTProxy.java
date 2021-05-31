@@ -22,17 +22,17 @@ public interface InvoiceIPTProxy {
     InvoiceIPaidThatDto create(@RequestBody InvoiceIPaidThatDto invoice);
 
     @GetMapping("/{id}/")
-    InvoiceIPaidThatDto findById(@PathVariable Long id);
+    InvoiceIPaidThatDto findById(@PathVariable("id") Long id);
 
     @PutMapping("/{id}/")
-    InvoiceIPaidThatDto update(@PathVariable Long id, @RequestBody InvoiceIPaidThatDto invoice);
+    InvoiceIPaidThatDto update(@PathVariable("id") Long id, @RequestBody InvoiceIPaidThatDto invoice);
 
     @DeleteMapping("/{id}/")
-    ResponseEntity<Void> delete(@PathVariable Long id);
+    ResponseEntity<Void> delete(@PathVariable("id") Long id);
 
     @GetMapping("/{id}/to_pdf/")
-    ResponseEntity<Void> getPdf(@PathVariable Long id);
+    ResponseEntity<Void> getPdf(@PathVariable("id") Long id);
 
     @PostMapping("/{id}/validate/")
-    Boolean validate(@PathVariable Long id, @RequestBody Boolean sendEmail);
+    Boolean validate(@PathVariable("id") Long id, @RequestBody Boolean sendEmail);
 }

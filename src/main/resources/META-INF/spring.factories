@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-fr.hiit.ipaidthat.configuration.IPTAutoConfiguration,
+fr.hiit.ipaidthat.configuration.IPTAutoConfiguration
