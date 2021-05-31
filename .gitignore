@@ -1,0 +1,8 @@
+### IDE files
+.idea/*
+!.idea/runConfigurations
+!.idea/codeStyles
+*.iml
+
+### Maven ###
+target/
