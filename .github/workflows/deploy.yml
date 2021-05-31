@@ -35,7 +35,6 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
         run: >-
           mvn --settings .github/workflows/settings.xml
-          -pl "!:hiit-ms-common"
           deploy
           --batch-mode --no-transfer-progress -Dsilent=true
 
