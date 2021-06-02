@@ -12,7 +12,7 @@ public class IPTErrorDecoder implements ErrorDecoder {
     public Exception decode(String methodKey, Response response) {
         HttpStatus status = HttpStatus.resolve(response.status());
         return status != null ?
-                new ResponseStatusException(status) :
-                new Exception("Generic error");
+                new ResponseStatusException(status, response.reason()) :
+                new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Generic error");
     }
 }
