@@ -24,6 +24,10 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     </properties>
 
+    <scm>
+        <url>https://github.com/hiit-consulting-fr/ipaidthat-proxy</url>
+    </scm>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
