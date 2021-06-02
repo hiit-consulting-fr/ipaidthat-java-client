@@ -1,4 +1,13 @@
 version: 2
+registries:
+  maven-hiit:
+    type: maven-repository
+    url: https://maven.hiit-consulting.fr/releases
+    username: ${{secrets.MAVEN_USER}}
+    password: ${{secrets.MAVEN_PASSWORD}}
+  central:
+    type: maven-repository
+    url: https://repo1.maven.org/maven2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -7,5 +16,8 @@ updates:
 
   - package-ecosystem: "maven"
     directory: "/" # Location of package manifests
+    registries:
+      - maven-hiit
+      - central
     schedule:
       interval: "daily"
