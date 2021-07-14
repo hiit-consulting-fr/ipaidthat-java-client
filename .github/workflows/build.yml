@@ -8,7 +8,7 @@ on:
       - hotfix/**
       - fix/**
       - dependabot/**
-      - '!master'
+      - master
 
 jobs:
   build:
@@ -26,10 +26,19 @@ jobs:
           distribution: 'zulu'
 
       - name: Maven build & test
-        run: mvn clean verify --batch-mode --no-transfer-progress -Dsilent=true
+        run: >-
+          mvn clean verify
+          -Pcoverage
+          --batch-mode --no-transfer-progress -Dsilent=true
 
       - name: Publish Test Report
         uses: scacap/action-surefire-report@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
         if: always()
+
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./**/target/site/jacoco/jacoco.xml
+          name: codecov
