@@ -26,6 +26,9 @@ jobs:
           distribution: 'zulu'
 
       - name: Maven build & test
+        env:
+          MAVEN_USER: ${{ secrets.MAVEN_USER}}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
         run: >-
           mvn clean verify
           -Pcoverage
