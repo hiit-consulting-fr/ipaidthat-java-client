@@ -20,7 +20,7 @@ public interface InvoiceSimpleItemIPTProxy {
     List<InvoiceSimpleItemIPTDto> findAll();
 
     @GetMapping("/{id}")
-    InvoiceSimpleItemIPTDto findById(@PathVariable Long id);
+    InvoiceSimpleItemIPTDto findById(@PathVariable("id") Long id);
 
     @GetMapping("")
     List<InvoiceSimpleItemIPTDto> findAllByInvoiceId(@RequestParam("invoice") Long invoiceId);
@@ -29,8 +29,8 @@ public interface InvoiceSimpleItemIPTProxy {
     InvoiceSimpleItemIPTDto create(@RequestBody InvoiceSimpleItemIPTDto invoiceSimpleItem);
 
     @PutMapping("/{id}")
-    InvoiceSimpleItemIPTDto update(@PathVariable Long id, @RequestBody InvoiceSimpleItemIPTDto invoiceSimpleItem);
+    InvoiceSimpleItemIPTDto update(@PathVariable("id") Long id, @RequestBody InvoiceSimpleItemIPTDto invoiceSimpleItem);
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable Long id);
+    ResponseEntity<Void> delete(@PathVariable("id") Long id);
 }

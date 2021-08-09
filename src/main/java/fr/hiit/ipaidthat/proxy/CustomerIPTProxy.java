@@ -15,7 +15,7 @@ public interface CustomerIPTProxy {
     List<CustomerIPaidThatDto> findAll();
 
     @GetMapping("/{id}/")
-    CustomerIPaidThatDto findById(@PathVariable Long id);
+    CustomerIPaidThatDto findById(@PathVariable("id") Long id);
 
     @GetMapping
     List<CustomerIPaidThatDto> findByExternalId(@RequestParam("external_id") Long externalId);
