@@ -24,8 +24,12 @@ jobs:
           distribution: 'zulu'
 
       - name: Update version
+        env:
+          MAVEN_USER: ${{ secrets.MAVEN_USER}}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
         run: >-
-          mvn versions:set
+          mvn --settings .github/workflows/settings.xml
+          versions:set
           -DnewVersion=${RELEASE_VERSION} -DoldVersion=*
           -DgroupId=* -DartifactId=*
           --batch-mode --no-transfer-progress -Dsilent=true
