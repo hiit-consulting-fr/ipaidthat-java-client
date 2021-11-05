@@ -1,6 +1,6 @@
 package fr.hiit.ipaidthat.proxy;
 
-import fr.hiit.ipaidthat.proxy.dto.InvoiceIPaidThatDto;
+import fr.hiit.ipaidthat.proxy.model.Invoice;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,16 +16,16 @@ import java.util.List;
 public interface InvoiceIPTProxy {
 
     @GetMapping("/")
-    List<InvoiceIPaidThatDto> findAll();
+    List<Invoice> findAll();
 
     @PostMapping("/")
-    InvoiceIPaidThatDto create(@RequestBody InvoiceIPaidThatDto invoice);
+    Invoice create(@RequestBody Invoice invoice);
 
     @GetMapping("/{id}/")
-    InvoiceIPaidThatDto findById(@PathVariable("id") Long id);
+    Invoice findById(@PathVariable("id") Long id);
 
     @PutMapping("/{id}/")
-    InvoiceIPaidThatDto update(@PathVariable("id") Long id, @RequestBody InvoiceIPaidThatDto invoice);
+    Invoice update(@PathVariable("id") Long id, @RequestBody Invoice invoice);
 
     @DeleteMapping("/{id}/")
     ResponseEntity<Void> delete(@PathVariable("id") Long id);

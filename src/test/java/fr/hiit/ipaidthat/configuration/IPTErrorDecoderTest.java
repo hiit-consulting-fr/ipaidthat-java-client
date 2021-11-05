@@ -16,17 +16,17 @@ class IPTErrorDecoderTest {
         //Prepare
         Request request = Request.create(Request.HttpMethod.GET, "", new HashMap<>(), (Request.Body) null, null);
         Response response = Response.builder()
-                .request(request)
-                .reason("Test")
-                .status(403)
-                .build();
+            .request(request)
+            .reason("Test")
+            .status(403)
+            .build();
 
         //Execute
         Exception exception = new IPTErrorDecoder().decode("method", response);
 
         //Validate
         assertThat(exception).isNotNull()
-                .hasFieldOrPropertyWithValue("status", HttpStatus.FORBIDDEN)
-                .hasFieldOrPropertyWithValue("reason", "Test");
+            .hasFieldOrPropertyWithValue("status", HttpStatus.FORBIDDEN)
+            .hasFieldOrPropertyWithValue("reason", "Test");
     }
 }

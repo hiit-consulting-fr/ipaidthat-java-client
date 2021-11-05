@@ -1,4 +1,4 @@
-package fr.hiit.ipaidthat.proxy.dto;
+package fr.hiit.ipaidthat.proxy.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AccessLevel;
@@ -7,12 +7,13 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public enum DocumentStatus {
-    DRAFT("draft"),
-    UPDATING("updating"),
-    NOT_PAID("not paid"),
-    PAID("paid");
+public enum DocumentType {
+    INVOICE("invoice"),
+    QUOTE("quote"),
+    ORDER("order"),
+    CREDIT("credit"),
+    OTHER("other");
 
     @JsonValue
-    private final String status;
+    private final String type;
 }

@@ -1,4 +1,4 @@
-package fr.hiit.ipaidthat.proxy.dto;
+package fr.hiit.ipaidthat.proxy.model;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -15,12 +15,12 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class InvoiceSimpleItemIPTDto {
+public class InvoiceSimpleItem {
 
-    private Integer id;
+    private Long id;
 
     @NotNull
-    private Integer invoice;
+    private Long invoice;
 
     @NotNull
     @Size(min = 1, max = 64)

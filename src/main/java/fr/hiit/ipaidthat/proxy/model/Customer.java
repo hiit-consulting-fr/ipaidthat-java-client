@@ -1,4 +1,4 @@
-package fr.hiit.ipaidthat.proxy.dto;
+package fr.hiit.ipaidthat.proxy.model;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class CustomerIPaidThatDto {
+public class Customer {
 
     private Long id;
 

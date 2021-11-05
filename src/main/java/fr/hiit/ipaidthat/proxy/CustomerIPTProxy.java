@@ -1,6 +1,6 @@
 package fr.hiit.ipaidthat.proxy;
 
-import fr.hiit.ipaidthat.proxy.dto.CustomerIPaidThatDto;
+import fr.hiit.ipaidthat.proxy.model.Customer;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,11 +12,11 @@ import java.util.List;
 public interface CustomerIPTProxy {
 
     @GetMapping
-    List<CustomerIPaidThatDto> findAll();
+    List<Customer> findAll();
 
     @GetMapping("/{id}/")
-    CustomerIPaidThatDto findById(@PathVariable("id") Long id);
+    Customer findById(@PathVariable("id") Long id);
 
     @GetMapping
-    List<CustomerIPaidThatDto> findByExternalId(@RequestParam("external_id") Long externalId);
+    List<Customer> findByExternalId(@RequestParam("external_id") Long externalId);
 }
