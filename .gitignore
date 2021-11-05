@@ -2,6 +2,7 @@
 .idea/*
 !.idea/runConfigurations
 !.idea/codeStyles
+!.idea/inspectionProfiles
 *.iml
 
 ### Maven ###

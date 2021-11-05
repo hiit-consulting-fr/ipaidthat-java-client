@@ -33,5 +33,4 @@ public interface InvoiceSimpleItemIPTProxy {
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable("id") Long id);
-
 }

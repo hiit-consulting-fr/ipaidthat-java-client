@@ -1,7 +1,6 @@
 package fr.hiit.ipaidthat.proxy;
 
 import fr.hiit.ipaidthat.proxy.model.Invoice;
-import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,28 +10,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @FeignClient(url = "https://ipaidthat.io/inv/api/v2/invoices", name = "IPaidThat-api-invoice")
 public interface InvoiceIPTProxy {
 
-  @GetMapping("/")
-  List<Invoice> findAll();
+    @GetMapping("/")
+    List<Invoice> findAll();
 
-  @PostMapping("/")
-  Invoice create(@RequestBody Invoice invoice);
+    @PostMapping("/")
+    Invoice create(@RequestBody Invoice invoice);
 
-  @GetMapping("/{id}/")
-  Invoice findById(@PathVariable("id") Long id);
+    @GetMapping("/{id}/")
+    Invoice findById(@PathVariable("id") Long id);
 
-  @PutMapping("/{id}/")
-  Invoice update(@PathVariable("id") Long id, @RequestBody Invoice invoice);
+    @PutMapping("/{id}/")
+    Invoice update(@PathVariable("id") Long id, @RequestBody Invoice invoice);
 
-  @DeleteMapping("/{id}/")
-  ResponseEntity<Void> delete(@PathVariable("id") Long id);
+    @DeleteMapping("/{id}/")
+    ResponseEntity<Void> delete(@PathVariable("id") Long id);
 
-  @GetMapping("/{id}/to_pdf/")
-  ResponseEntity<Void> getPdf(@PathVariable("id") Long id);
+    @GetMapping("/{id}/to_pdf/")
+    ResponseEntity<Void> getPdf(@PathVariable("id") Long id);
 
-  @PostMapping("/{id}/validate/")
-  Boolean validate(@PathVariable("id") Long id, @RequestBody Boolean sendEmail);
-
+    @PostMapping("/{id}/validate/")
+    Boolean validate(@PathVariable("id") Long id, @RequestBody Boolean sendEmail);
 }

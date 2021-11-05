@@ -1,4 +1,4 @@
-package fr.hiit.ipaidthat.proxy.model.enumerations;
+package fr.hiit.ipaidthat.proxy.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AccessLevel;
