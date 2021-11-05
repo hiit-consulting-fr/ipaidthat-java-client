@@ -1,6 +1,6 @@
 package fr.hiit.ipaidthat.proxy;
 
-import fr.hiit.ipaidthat.proxy.dto.InvoiceSimpleItemIPTDto;
+import fr.hiit.ipaidthat.proxy.model.InvoiceSimpleItem;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,20 +17,21 @@ import java.util.List;
 public interface InvoiceSimpleItemIPTProxy {
 
     @GetMapping("/")
-    List<InvoiceSimpleItemIPTDto> findAll();
+    List<InvoiceSimpleItem> findAll();
 
     @GetMapping("/{id}")
-    InvoiceSimpleItemIPTDto findById(@PathVariable("id") Long id);
+    InvoiceSimpleItem findById(@PathVariable("id") Long id);
 
     @GetMapping("")
-    List<InvoiceSimpleItemIPTDto> findAllByInvoiceId(@RequestParam("invoice") Long invoiceId);
+    List<InvoiceSimpleItem> findAllByInvoiceId(@RequestParam("invoice") Long invoiceId);
 
     @PostMapping("/")
-    InvoiceSimpleItemIPTDto create(@RequestBody InvoiceSimpleItemIPTDto invoiceSimpleItem);
+    InvoiceSimpleItem create(@RequestBody InvoiceSimpleItem invoiceSimpleItem);
 
     @PutMapping("/{id}")
-    InvoiceSimpleItemIPTDto update(@PathVariable("id") Long id, @RequestBody InvoiceSimpleItemIPTDto invoiceSimpleItem);
+    InvoiceSimpleItem update(@PathVariable("id") Long id, @RequestBody InvoiceSimpleItem invoiceSimpleItem);
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable("id") Long id);
+
 }
