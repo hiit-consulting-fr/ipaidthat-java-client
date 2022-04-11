@@ -40,7 +40,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
         if: always()
 
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./target/site/jacoco/jacoco.xml
