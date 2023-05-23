@@ -11,18 +11,18 @@
     <name>${project.artifactId}</name>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependency versions -->
-        <ms-parent.version>2.5.0</ms-parent.version>
+        <ms-parent.version>1.1.0</ms-parent.version>
 
         <!-- Plugin versions -->
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
-        <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
     </properties>
 
     <scm>
@@ -32,7 +32,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>fr.hiit</groupId>
+                <groupId>fr.hiitconsulting</groupId>
                 <artifactId>ms-parent</artifactId>
                 <version>${ms-parent.version}</version>
                 <type>pom</type>
@@ -108,14 +108,22 @@
 
     <distributionManagement>
         <repository>
-            <id>hiit-maven</id>
-            <url>https://maven.hiit-consulting.fr/releases</url>
+            <id>github</id>
+            <name>GitHub Hi!t Consulting Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/hiit-consulting-fr/ipaidthat-proxy</url>
         </repository>
-        <snapshotRepository>
-            <id>hiit-maven</id>
-            <url>https://maven.hiit-consulting.fr/snapshots</url>
-        </snapshotRepository>
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/hiit-consulting-fr/ms-parent</url>
+        </repository>
+    </repositories>
 
     <profiles>
         <profile>
