@@ -1,19 +1,16 @@
 version: 2
-registries:
-  maven-hiit:
-    type: maven-repository
-    url: https://maven.hiit-consulting.fr/releases
-    username: ${{secrets.MAVEN_USER}}
-    password: ${{secrets.MAVEN_PASSWORD}}
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
 
   - package-ecosystem: "maven"
-    directory: "/" # Location of package manifests
-    registries:
-      - maven-hiit
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
       interval: "daily"

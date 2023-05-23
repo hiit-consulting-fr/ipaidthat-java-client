@@ -1,0 +1,18 @@
+{
+  "name": "ipaidthat-proxy",
+  "version": "0.0.1",
+  "author": "hiit-consulting",
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/hiit-consulting-fr/ipaidthat-proxy#readme",
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.1",
+    "@commitlint/config-conventional": "^17.0.0",
+    "husky": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.10.0"
+  }
+}

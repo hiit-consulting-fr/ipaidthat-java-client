@@ -7,3 +7,6 @@
 
 ### Maven ###
 target/
+
+### Node ###
+node_modules
