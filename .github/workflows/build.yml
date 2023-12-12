@@ -20,19 +20,14 @@ jobs:
 
       - name: Maven build & test
         run: >-
-          mvn clean verify
+          mvn
           -Pcoverage
-          --no-transfer-progress
-          -DrepoToken=${COVERALLS_REPO_TOKEN}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          clean verify
 
       - name: Coveralls Coverage Report Submission
         run: >-
           mvn
           -Pcoverage
-          --no-transfer-progress
-          -DrepoToken=${COVERALLS_REPO_TOKEN}
           coveralls:report
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN}}
