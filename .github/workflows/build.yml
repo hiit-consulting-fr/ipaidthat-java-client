@@ -23,6 +23,8 @@ jobs:
           mvn
           -Pcoverage
           clean verify
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Coveralls Coverage Report Submission
         run: >-
@@ -30,4 +32,5 @@ jobs:
           -Pcoverage
           coveralls:report
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN}}
