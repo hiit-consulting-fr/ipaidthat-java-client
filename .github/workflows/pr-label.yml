@@ -1,3 +1,5 @@
+name: Auto label PR
+
 on:
   pull_request:
     types: [opened, edited]
