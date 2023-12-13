@@ -8,5 +8,10 @@
 ### Maven ###
 target/
 
+### gen ###
+gen/*
+!gen/.openapi-generator-ignore
+!gen/.mvn/maven.config
+
 ### Node ###
 node_modules
