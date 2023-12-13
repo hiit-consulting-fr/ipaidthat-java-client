@@ -18,19 +18,16 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Maven build & test
-        run: >-
-          mvn
-          -Pcoverage
-          clean verify
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
 
-      - name: Coveralls Coverage Report Submission
+      - name: Lint
         run: >-
-          mvn
-          -Pcoverage
-          coveralls:report
+          npx @redocly/cli lint
+
+      - name: Maven build
+        run: >-
+          mvn clean verify
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN}}

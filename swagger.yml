@@ -1,0 +1,703 @@
+swagger: '2.0'
+info:
+  title: '[INV] IPaidThat Invoicing API'
+  description: |
+
+
+    README
+    ======
+
+    Welcome to IPaidThat Invoicing API v2
+
+    Authenticate your API
+    --------------------
+
+    Authentication is done via an API Token in the Authorization header. Every call has to be authenticated with an API Token.
+
+    Exemple header:
+
+    `Authorization: Token <your token>`
+
+    Startup guide
+    -----------------
+
+    #### 1 Pre-requisities
+    Before you can use the Invoicing API, you need to configure your Sender Profile here:
+    https://ipaidthat.io/inv/list-senders
+
+    #### 2 Create a customer
+
+    Call the `POST /inv/api/v2/customers/` to create a new customer and retrieve its ID
+
+    #### 3 Create your Draft Invoice
+
+    Call the `POST /inv/api/v2/invoices/` to create a draft invoice, attached to a customer and a Sender Profile (that you created earlier)
+
+    #### 4 Attach items to your invoice
+
+    Call the `POST /inv/api/v2/invoicesimpleitems/` to add new items to your invoice
+
+    #### 5 Validate, send or download your invoice
+
+    Call the `POST /inv/api/v2/invoices/<invoice_id>/validate/` to validate your invoice
+    Call the `POST /inv/api/v2/invoices/<invoice_id>/to_pdf/` to download the generated PDF
+  termsOfService: https://ipaidthat.io/fr/conditions-generales-dutilisation-cgu/
+  contact:
+    email: support@ipaidthat.io
+  version: v2
+host: ipaidthat.io
+schemes:
+  - https
+basePath: /inv/api/v2
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: header
+    name: Authorization
+security:
+  - api_key: []
+paths:
+  /customers/:
+    get:
+      operationId: customers_list
+      summary: List all your customers
+      description: Return a list of your customers
+      parameters:
+        - name: external_id
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: name
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: email
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: first_name
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: last_name
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: siren
+          in: query
+          description: ''
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Customer'
+      tags:
+        - customers
+    post:
+      operationId: customers_create
+      summary: Create a new customer
+      description: Create a new customer
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Customer'
+      tags:
+        - customers
+    parameters: []
+  /customers/{id}/:
+    get:
+      operationId: customers_read
+      summary: Get a single customer
+      description: Get a customer by its ID
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Customer'
+      tags:
+        - customers
+    put:
+      operationId: customers_update
+      summary: Update the whole customer resource
+      description: Update all the fields of your customer object
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Customer'
+      tags:
+        - customers
+    patch:
+      operationId: customers_partial_update
+      summary: Update a specific field of your customer
+      description: Update a specific set of field of your customer object
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Customer'
+      tags:
+        - customers
+    delete:
+      operationId: customers_delete
+      summary: Delete the customer
+      description: Warning, Draft invoices with this customer will be left without customer
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - customers
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /invoices/:
+    get:
+      operationId: invoices_list
+      description: List all your Invoices
+      parameters:
+        - name: external_id
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: type
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: status
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: issue_date
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: invoice_number
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: number
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: generated_number
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: due_date
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: sent
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: customer_id
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: sender_id
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: customer
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: sender
+          in: query
+          description: ''
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Invoice'
+      tags:
+        - invoices
+    post:
+      operationId: invoices_create
+      description: Create a new Invoice draft
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Invoice'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Invoice'
+      tags:
+        - invoices
+    parameters: []
+  /invoices/{id}/:
+    get:
+      operationId: invoices_read
+      description: Get a specific Invoice by ID
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Invoice'
+      tags:
+        - invoices
+    put:
+      operationId: invoices_update
+      description: Update an Invoice
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Invoice'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Invoice'
+      tags:
+        - invoices
+    patch:
+      operationId: invoices_partial_update
+      description: Update an invoice specific field
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Invoice'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Invoice'
+      tags:
+        - invoices
+    delete:
+      operationId: invoices_delete
+      summary: Remove an invoice
+      description: If the invoice has been validated, the IPaidThat document won't be deleted
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - invoices
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /invoices/{id}/to_pdf/:
+    get:
+      operationId: invoices_get_pdf
+      description: Generate PDF and return document raw content
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - invoices
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /invoices/{id}/validate/:
+    post:
+      operationId: invoices_validate
+      description: Validate document and send invoice to customer via E-Email
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ValidateInvoice'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/ValidateInvoice'
+      tags:
+        - invoices
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /invoicesimpleitems/:
+    get:
+      operationId: invoicesimpleitems_list
+      description: ''
+      parameters:
+        - name: invoice_id
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: name
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: additional_info
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: invoice
+          in: query
+          description: ''
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/InvoiceSimpleItem'
+      tags:
+        - invoicesimpleitems
+    post:
+      operationId: invoicesimpleitems_create
+      description: Add an Item to an Invoice
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceSimpleItem'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/InvoiceSimpleItem'
+      tags:
+        - invoicesimpleitems
+    parameters: []
+  /invoicesimpleitems/{id}/:
+    get:
+      operationId: invoicesimpleitems_read
+      description: Get specific Item from Invoice
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/InvoiceSimpleItem'
+      tags:
+        - invoicesimpleitems
+    put:
+      operationId: invoicesimpleitems_update
+      description: Update the invoice item
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceSimpleItem'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/InvoiceSimpleItem'
+      tags:
+        - invoicesimpleitems
+    patch:
+      operationId: invoicesimpleitems_partial_update
+      description: Partially update an Item to an invoice
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceSimpleItem'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/InvoiceSimpleItem'
+      tags:
+        - invoicesimpleitems
+    delete:
+      operationId: invoicesimpleitems_delete
+      description: Remove an item from an Invoice
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - invoicesimpleitems
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+definitions:
+  Customer:
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      created:
+        title: Created
+        type: string
+        format: date-time
+        readOnly: true
+      external_id:
+        title: ID Externe
+        description: Utilisé pour identifier vos clients à partir d'une base de données externe. Principalement utilisé avec l'API
+        type: string
+        maxLength: 64
+        x-nullable: true
+      name:
+        title: Société
+        type: string
+        maxLength: 64
+      first_name:
+        title: Prénom
+        type: string
+        maxLength: 64
+      last_name:
+        title: Nom
+        type: string
+        maxLength: 64
+      siren:
+        title: Siret / Siren
+        type: string
+        maxLength: 30
+      vat:
+        title: Numéro de TVA
+        type: string
+        maxLength: 30
+      address:
+        title: Adresse
+        type: string
+        maxLength: 500
+      email:
+        title: Email
+        type: string
+        maxLength: 64
+      phone:
+        title: Téléphone
+        type: string
+        maxLength: 32
+      extra:
+        title: Extra
+        type: string
+  Invoice:
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      external_id:
+        title: External id
+        type: string
+        maxLength: 64
+        minLength: 1
+        x-nullable: true
+      issue_date:
+        title: Date
+        type: string
+        format: date
+      type:
+        title: Type
+        type: string
+        enum:
+          - invoice
+          - quote
+          - order
+          - credit
+          - other
+      title:
+        title: Titre
+        description: Pour remplacer "FACTURE" par autre chose si le type est réglé sur "autre".
+        type: string
+        maxLength: 30
+      invoice_number:
+        title: Invoice number
+        description: 'Final number will only be returned after validation. The mention Auto: show the number to be used.'
+        type: string
+        readOnly: true
+      due_date:
+        title: Date d'échéance
+        type: string
+        format: date
+        x-nullable: true
+      shipping:
+        title: Frais de ports
+        type: string
+        format: decimal
+        x-nullable: true
+      c_field_name_1:
+        title: Nom
+        type: string
+        maxLength: 30
+      c_field_value_1:
+        title: Valeur
+        type: string
+        maxLength: 30
+      c_field_name_2:
+        title: Nom
+        type: string
+        maxLength: 30
+      c_field_value_2:
+        title: Valeur
+        type: string
+        maxLength: 30
+      sender:
+        title: Paramètres
+        type: integer
+        x-nullable: true
+      customer:
+        title: Clients
+        type: integer
+        x-nullable: true
+      draft:
+        title: Draft
+        type: boolean
+        readOnly: true
+      multi_page:
+        title: Multi page
+        description: Optimise la génération de documents de plusieurs pages.
+        type: boolean
+      status:
+        title: Status
+        type: string
+        enum:
+          - draft
+          - updating
+          - not paid
+          - paid
+      paid:
+        title: Paid
+        type: boolean
+      total:
+        title: Total
+        type: number
+        readOnly: true
+      tax_amount:
+        title: Tax amount
+        type: number
+        readOnly: true
+      subtotal:
+        title: Subtotal
+        type: number
+        readOnly: true
+  ValidateInvoice:
+    type: object
+    properties:
+      send_email:
+        title: Send email
+        type: boolean
+        default: false
+      sync_with_ipaidthat:
+        title: Sync with ipaidthat
+        type: boolean
+        default: true
+  InvoiceSimpleItem:
+    required:
+      - invoice
+      - name
+      - unit_price
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      invoice:
+        title: Invoice
+        type: integer
+      name:
+        title: Nom
+        description: Tel que ce sera indiqué sur la facture
+        type: string
+        maxLength: 64
+        minLength: 1
+      additional_info:
+        title: Informations supplémentaires
+        type: string
+      unit_price:
+        title: Prix unitaire
+        description: 'Prix unitaire HT. ex.: 1 heure de travail / 1 jour de travail, un mois d''abonnement etc...'
+        type: string
+        format: decimal
+      quantity:
+        title: Quantité
+        description: Peut être inférieur à 1 (ex. 0,75 sera 75% du prix unitaire)
+        type: string
+        format: decimal
+      tax_percent:
+        title: '% TVA'
+        description: Pourcentage de taxe/TVA appliqué à cet élément
+        type: string
+        format: decimal
+      discount_percent:
+        title: Pourcentage de remise
+        description: 'Applique une remise en % sur cet article. Remarque: si vous avez une remise d''un montant fixe, veuillez créer un article négatif.'
+        type: string
+        format: decimal
+      position:
+        title: Position
+        type: integer
+        maximum: 2147483647
+        minimum: -2147483648
