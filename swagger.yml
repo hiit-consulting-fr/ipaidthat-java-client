@@ -7,7 +7,7 @@ info:
     README
     ======
 
-    Welcome to IPaidThat Invoicing API v2
+    Welcome to IPaidThat Invoicing API v3
 
     Authenticate your API
     --------------------
@@ -27,28 +27,28 @@ info:
 
     #### 2 Create a customer
 
-    Call the `POST /inv/api/v2/customers/` to create a new customer and retrieve its ID
+    Call the `POST /inv/api/v3/customers/` to create a new customer and retrieve its ID
 
     #### 3 Create your Draft Invoice
 
-    Call the `POST /inv/api/v2/invoices/` to create a draft invoice, attached to a customer and a Sender Profile (that you created earlier)
+    Call the `POST /inv/api/v3/invoices/` to create a draft invoice, attached to a customer and a Sender Profile (that you created earlier)
 
     #### 4 Attach items to your invoice
 
-    Call the `POST /inv/api/v2/invoicesimpleitems/` to add new items to your invoice
+    Call the `POST /inv/api/v3/invoicesimpleitems/` to add new items to your invoice
 
     #### 5 Validate, send or download your invoice
 
-    Call the `POST /inv/api/v2/invoices/<invoice_id>/validate/` to validate your invoice
-    Call the `POST /inv/api/v2/invoices/<invoice_id>/to_pdf/` to download the generated PDF
+    Call the `POST /inv/api/v3/invoices/<invoice_id>/validate/` to validate your invoice
+    Call the `POST /inv/api/v3/invoices/<invoice_id>/to_pdf/` to download the generated PDF
   termsOfService: https://ipaidthat.io/fr/conditions-generales-dutilisation-cgu/
   contact:
     email: support@ipaidthat.io
-  version: v2
+  version: v3
 host: ipaidthat.io
 schemes:
   - https
-basePath: /inv/api/v2
+basePath: /inv/api/v3
 consumes:
   - application/json
 produces:
@@ -97,13 +97,49 @@ paths:
           description: ''
           required: false
           type: string
+        - name: search
+          in: query
+          description: A search term.
+          required: false
+          type: string
+        - name: ordering
+          in: query
+          description: Which field to use when ordering the results.
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          required: false
+          type: integer
+        - name: page_size
+          in: query
+          description: Number of results to return per page.
+          required: false
+          type: integer
       responses:
         '200':
           description: ''
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Customer'
+            required:
+              - count
+              - results
+            type: object
+            properties:
+              count:
+                type: integer
+              next:
+                type: string
+                format: uri
+                x-nullable: true
+              previous:
+                type: string
+                format: uri
+                x-nullable: true
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/Customer'
       tags:
         - customers
     post:
@@ -252,6 +288,21 @@ paths:
           required: false
           type: string
         - name: sender
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: updated
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: min_updated
+          in: query
+          description: ''
+          required: false
+          type: string
+        - name: max_updated
           in: query
           description: ''
           required: false
@@ -509,7 +560,7 @@ definitions:
       name:
         title: Société
         type: string
-        maxLength: 64
+        maxLength: 255
       first_name:
         title: Prénom
         type: string
@@ -530,10 +581,278 @@ definitions:
         title: Adresse
         type: string
         maxLength: 500
+      zip_code:
+        title: Code postal
+        type: string
+        maxLength: 16
+        x-nullable: true
+      city:
+        title: Ville
+        type: string
+        maxLength: 128
+        x-nullable: true
+      country:
+        title: Pays
+        type: string
+        enum:
+          - AF
+          - AL
+          - DZ
+          - AS
+          - AD
+          - AG
+          - AI
+          - AR
+          - AA
+          - AW
+          - AU
+          - AT
+          - AZ
+          - BS
+          - BH
+          - BD
+          - BB
+          - BY
+          - BE
+          - BZ
+          - BJ
+          - BM
+          - BT
+          - BO
+          - BL
+          - BA
+          - BW
+          - BR
+          - BC
+          - BN
+          - BG
+          - BF
+          - BI
+          - KH
+          - CM
+          - CA
+          - IC
+          - CV
+          - KY
+          - CF
+          - TD
+          - CD
+          - CL
+          - CN
+          - CI
+          - CS
+          - CO
+          - CC
+          - CG
+          - CK
+          - CR
+          - CT
+          - HR
+          - CU
+          - CB
+          - CY
+          - CZ
+          - DK
+          - DJ
+          - DM
+          - DO
+          - TM
+          - EC
+          - EG
+          - SV
+          - GQ
+          - ER
+          - EE
+          - ET
+          - FA
+          - FO
+          - FJ
+          - FI
+          - FR
+          - GF
+          - PF
+          - FS
+          - GA
+          - GM
+          - GE
+          - DE
+          - GH
+          - GI
+          - GB
+          - GR
+          - GL
+          - GD
+          - GP
+          - GU
+          - GT
+          - GN
+          - GY
+          - HT
+          - HW
+          - HN
+          - HK
+          - HU
+          - IS
+          - IN
+          - ID
+          - IA
+          - IQ
+          - IR
+          - IM
+          - IL
+          - IT
+          - JM
+          - JP
+          - JO
+          - KZ
+          - KE
+          - KI
+          - NK
+          - KS
+          - KW
+          - KG
+          - LA
+          - LV
+          - LB
+          - LS
+          - LR
+          - LY
+          - LI
+          - LT
+          - LU
+          - MO
+          - MK
+          - MG
+          - MY
+          - MW
+          - MV
+          - ML
+          - MT
+          - MH
+          - MQ
+          - MR
+          - MU
+          - ME
+          - MX
+          - MI
+          - MD
+          - MC
+          - MN
+          - MS
+          - MA
+          - MZ
+          - MM
+          - NA
+          - NU
+          - NP
+          - AN
+          - NL
+          - NV
+          - NC
+          - NZ
+          - NI
+          - NE
+          - NG
+          - NW
+          - NF
+          - 'NO'
+          - OM
+          - PK
+          - PW
+          - PS
+          - PA
+          - PG
+          - PY
+          - PE
+          - PH
+          - PO
+          - PL
+          - PT
+          - PR
+          - QA
+          - RS
+          - RE
+          - RO
+          - RU
+          - RW
+          - NT
+          - EU
+          - HE
+          - KN
+          - LC
+          - MB
+          - PM
+          - VC
+          - SP
+          - SO
+          - SM
+          - ST
+          - SA
+          - SN
+          - SC
+          - SL
+          - SG
+          - SK
+          - SI
+          - SB
+          - OI
+          - ZA
+          - ES
+          - LK
+          - SD
+          - SR
+          - SZ
+          - SE
+          - CH
+          - SY
+          - TA
+          - TW
+          - TJ
+          - TZ
+          - TH
+          - TG
+          - TK
+          - TO
+          - TT
+          - TN
+          - TR
+          - TU
+          - TC
+          - TV
+          - UG
+          - UA
+          - AE
+          - US
+          - UY
+          - UZ
+          - VU
+          - VS
+          - VE
+          - VN
+          - VB
+          - VA
+          - WK
+          - WF
+          - YE
+          - ZR
+          - ZM
+          - ZW
+        x-nullable: true
+      code:
+        title: Code
+        description: Code utilisé dans les numéros de facture
+        type: string
+        maxLength: 16
+        x-nullable: true
       email:
         title: Email
         type: string
-        maxLength: 64
+        format: email
+        x-nullable: true
+      email_recipients:
+        title: Email recipients
+        type: string
+        x-nullable: true
       phone:
         title: Téléphone
         type: string
@@ -541,6 +860,16 @@ definitions:
       extra:
         title: Extra
         type: string
+      number_of_invoices:
+        title: Number of invoices
+        type: integer
+        readOnly: true
+      payment_delay:
+        title: Retard de paiement
+        description: Définira automatiquement la date d'échéance x jours après la date de la facture. Une valeur de 0 ne fixera pas automatiquement la date d'échéance.
+        type: integer
+        maximum: 65535
+        minimum: 0
   Invoice:
     type: object
     properties:
@@ -641,6 +970,16 @@ definitions:
       subtotal:
         title: Subtotal
         type: number
+        readOnly: true
+      updated:
+        title: Updated
+        type: string
+        format: date-time
+        readOnly: true
+      created:
+        title: Created
+        type: string
+        format: date-time
         readOnly: true
   ValidateInvoice:
     type: object
