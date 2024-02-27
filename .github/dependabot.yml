@@ -20,6 +20,6 @@ updates:
 registries:
   maven-github:
     type: maven-repository
-    url: https://maven.pkg.github.com/octocat
+    url: https://maven.pkg.github.com/hiit-consulting-fr/ms-parent
     username: ${{ vars.MAVEN_USER }}
     password: ${{ secrets.MAVEN_PASSWORD }}
