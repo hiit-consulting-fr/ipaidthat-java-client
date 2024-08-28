@@ -865,8 +865,8 @@ definitions:
         type: integer
         readOnly: true
       payment_delay:
-        title: Retard de paiement
-        description: Définira automatiquement la date d'échéance x jours après la date de la facture. Une valeur de 0 ne fixera pas automatiquement la date d'échéance.
+        title: Échéance manuelle
+        description: Calcul de la date d'échéance en nombre de jours après l'émission de la facture. Laissez ce champs à 0 pour privilégier la méthode de calcul automatique définit dans le profil de facturation.
         type: integer
         maximum: 65535
         minimum: 0
@@ -892,9 +892,11 @@ definitions:
         type: string
         enum:
           - invoice
+          - credit
           - quote
           - order
-          - credit
+          - delivery
+          - proforma
           - other
       title:
         title: Titre
@@ -933,11 +935,11 @@ definitions:
         type: string
         maxLength: 30
       sender:
-        title: Paramètres
+        title: Profil
         type: integer
         x-nullable: true
       customer:
-        title: Clients
+        title: Client
         type: integer
         x-nullable: true
       draft:
@@ -954,8 +956,14 @@ definitions:
         enum:
           - draft
           - updating
+          - validated
           - not paid
+          - partially paid
+          - past due
           - paid
+          - canceled
+          - accepted
+          - rejected
       paid:
         title: Paid
         type: boolean
