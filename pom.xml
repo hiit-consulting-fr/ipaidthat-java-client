@@ -11,13 +11,13 @@
     <name>${project.artifactId}</name>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependency versions -->
-        <ms-parent.version>1.30.0</ms-parent.version>
+        <ms-parent.version>2.0.0</ms-parent.version>
         <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
 
         <!-- Plugin versions -->
@@ -123,6 +123,8 @@
                                 <library>resttemplate</library>
                                 <useJakartaEe>true</useJakartaEe>
                                 <openApiNullable>false</openApiNullable>
+                                <useJackson3>true</useJackson3>
+                                <useSpringBoot4>true</useSpringBoot4>
                             </configOptions>
                         </configuration>
                     </execution>
